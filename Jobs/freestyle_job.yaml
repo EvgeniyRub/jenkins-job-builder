@@ -56,7 +56,7 @@
           fingerprint: true
           default-excludes: false
       - cobertura:
-         report-file: "/reports/cobertura/coverage.xml"
+         report-file: "cover/coverage.xml"
          only-stable: "true"
          fail-no-reports: "true"
          fail-unhealthy: "true"
