@@ -5,18 +5,18 @@
     disabled: false
     display-name: 'freestyle_example'
     concurrent: true
-    node: master
+    node: agent_linux_1
     logrotate:
       numToKeep: 10
 
     parameters:
       - string:
           name: BRANCH
-          default: master
+          default: main
 
     scm:
       - git:
-         url: https://github.com/ochirkov/jenkins-job-builder.git
+         url: https://github.com/Matrix-82/jenkins-job-builder.git
          branches:
           - ${BRANCH}
 
