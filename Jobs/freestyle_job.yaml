@@ -1,0 +1,57 @@
+- job:
+    name: freestyle_example
+    project-type: freestyle
+    description: 'This is a simple freestyle job'
+    disabled: false
+    display-name: 'freestyle_example'
+    concurrent: true
+    node: master
+    logrotate:
+      numToKeep: 10
+
+    parameters:
+      - string:
+          name: BRANCH
+          default: master
+
+    scm:
+      - git:
+         url: https://github.com/ochirkov/jenkins-job-builder.git
+         branches:
+          - ${BRANCH}
+
+    wrappers:
+      - ansicolor
+      - timestamps
+      - build-user-vars
+      - build-name:
+          name: "#${BUILD_NUMBER}_${BRANCH}_${BUILD_USER_ID}"
+
+    builders:
+      - shell: |
+          #!/bin/bash -e
+          GREEN="\033[32m"
+          END="\033[0m"
+          echo -e "\n"
+          echo -e "${GREEN}Run Unit tests${END}"
+          tox -e py27
+      - shell: |
+          #!/bin/bash -e
+          GREEN="\033[32m"
+          END="\033[0m"
+          echo -e "\n"
+          echo -e "${GREEN}Generate Docs${END}"
+          tox -e docs
+      - shell: |
+          #!/bin/bash -e
+          GREEN="\033[32m"
+          END="\033[0m"
+          echo -e "\n"
+          echo -e "${GREEN}Run Python Linter${END}"
+          flake8 . --exit-zero
+    publishers:
+      - archive:
+          artifacts: 'doc/source/*.rst'
+          allow-empty: 'true'
+          fingerprint: true
+          default-excludes: false

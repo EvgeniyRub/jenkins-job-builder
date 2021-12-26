@@ -1,0 +1,12 @@
+- job:
+    name: JJB-Pipeline_job
+    project-type: pipeline
+    sandbox: true
+    pipeline-scm:
+      scm:
+        - git:
+           url: https://github.com/Matrix-82/Pipeline_jenkins_job.git
+           branches:
+            - feature/pipeline
+      script-path: Jenkins_file
+      lightweight-checkout: true
