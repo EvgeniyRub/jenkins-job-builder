@@ -47,6 +47,13 @@
           GREEN="\033[32m"
           END="\033[0m"
           echo -e "\n"
+          echo -e "${GREEN}Build coverage${END}"
+          tox -e cover
+      - shell: |
+          #!/bin/bash -e
+          GREEN="\033[32m"
+          END="\033[0m"
+          echo -e "\n"
           echo -e "${GREEN}Run Python Linter${END}"
           flake8 . --exit-zero
     publishers:
