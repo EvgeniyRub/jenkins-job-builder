@@ -12,11 +12,11 @@
     parameters:
       - string:
           name: BRANCH
-          default: main
+          default: master
 
     scm:
       - git:
-         url: https://github.com/Matrix-82/jenkins-job-builder.git
+         url: https://opendev.org/jjb/jenkins-job-builder.git
          branches:
           - ${BRANCH}
 
